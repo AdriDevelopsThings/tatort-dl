@@ -3,7 +3,7 @@ name = "tatort-dl"
 version = "0.1.0"
 description = "Downloader for Tatort movies"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 dependencies = [
     "beautifulsoup4>=4.14.3",
     "platformdirs>=4.5.1",
