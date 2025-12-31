@@ -22,5 +22,5 @@ dev = [
 [project.scripts]
 tatort-dl = "tatort_dl:main"
 
-[tool.setuptools]
-packages = ["tatort_dl"]
+[tool.setuptools.packages.find]
+include = ["tatort_dl*"]
