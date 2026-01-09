@@ -51,7 +51,7 @@ def _get_wikipedia_table_head_body() -> tuple[Tag, list[Tag]]:
 def _wikipedia_tr_to_meta(header: list[str], tr: Tag) -> Meta:
     tds = tr.select("td")
 
-    id_s = tds[header.index("Nr.")].get_text(strip=True)
+    id_s = tds[header.index("Folge")].get_text(strip=True)
     id = int(id_s)
 
     title_tag = tds[header.index("Titel")].select_one("a")
@@ -67,7 +67,7 @@ def _wikipedia_tr_to_meta(header: list[str], tr: Tag) -> Meta:
     case_s = case_s.split(" ")[0]
     case = int(case_s)
 
-    published = tds[header.index("Erstausstr.")].get_text(strip=True)
+    published = tds[header.index("Erstausstrahlung")].get_text(strip=True)
 
     return Meta(
         id=id, title=title, investigators=investigators, case=case, published=published
