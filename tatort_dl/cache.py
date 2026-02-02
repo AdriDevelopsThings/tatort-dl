@@ -3,7 +3,7 @@ from json import dumps, loads
 from os import mkdir, remove
 from os.path import exists, join
 from time import time
-from typing import Any, Optional, TypeAlias
+from typing import Any, Optional
 
 from platformdirs import user_cache_dir
 

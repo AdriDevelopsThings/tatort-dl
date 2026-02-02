@@ -11,9 +11,8 @@ pipx install .
 ## Running
 First think about which videos should be downloaded and then configure the filters. Use `-l` as an option to show which videos are filtered.
 ```
-usage: tatort-dl [-h] [-l] [--list-investigators] [-o OUTPUT_DIR] [--filter-downloaded] [--filter-not-downloaded] [--filter-downloadable]
-                 [--filter-investigators FILTER_INVESTIGATORS] [--filter-access-until FILTER_ACCESS_UNTIL] [--order-by {number,access}] [--order-inverse]
-                 [--limit LIMIT]
+usage: tatort-dl [-h] [-l] [--list-investigators] [-o OUTPUT_DIR] [-t TMP_DIR] [--worker-count WORKER_COUNT] [-N CONCURRENT_FRAGMENT_DOWNLOADS] [--filter-downloaded] [--filter-not-downloaded] [--filter-downloadable]
+                 [--filter-investigators FILTER_INVESTIGATORS] [--filter-access-until FILTER_ACCESS_UNTIL] [--order-by {number,access}] [--order-inverse] [--limit LIMIT]
 
 A downloader for Tatort movies
 
@@ -22,6 +21,9 @@ options:
   -l, --list
   --list-investigators
   -o, --output-dir OUTPUT_DIR
+  -t, --tmp-dir TMP_DIR
+  --worker-count WORKER_COUNT
+  -N, --concurrent-fragment-downloads CONCURRENT_FRAGMENT_DOWNLOADS
   --filter-downloaded   Filter for downloaded videos
   --filter-not-downloaded
                         Filter already downloaded videos out

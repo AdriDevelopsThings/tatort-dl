@@ -63,22 +63,23 @@ class ArdEpisode:
     partner: str
     available_to: datetime
 
-    __download_url: Optional[str] = None
+    # @property
+    # def download_url(self) -> str:
+    #     if self.__download_url:
+    #         return self.__download_url
 
+    #     url = f"{VIDEO_PATH}/{_format_name(self.show_title)}/{_format_name(self.title)}/{self.partner}/{self.id}"
+    #     response = requests.head(url)
+    #     if response.status_code == 404:
+    #         raise RuntimeError(
+    #             f"Download url for episode '{self.title}' ({self.id}) should be '{url}' but this page does not exist."
+    #         )
+
+    #     self.__download_url = url
+    #     return self.__download_url
     @property
     def download_url(self) -> str:
-        if self.__download_url:
-            return self.__download_url
-
-        url = f"{VIDEO_PATH}/{_format_name(self.show_title)}/{_format_name(self.title)}/{self.partner}/{self.id}"
-        response = requests.head(url)
-        if response.status_code == 404:
-            raise RuntimeError(
-                f"Download url for episode '{self.title}' ({self.id}) should be '{url}' but this page does not exist."
-            )
-
-        self.__download_url = url
-        return self.__download_url
+        return f"{VIDEO_PATH}/{self.id}"
 
 
 def _request_page(page: int) -> Page:

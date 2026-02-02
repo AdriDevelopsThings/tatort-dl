@@ -1,3 +1,5 @@
+from queue import Queue
+
 from tabulate import tabulate
 
 from tatort_dl.api.episode import Episode, get_episodes
@@ -9,7 +11,13 @@ from tatort_dl.order import apply_order
 
 def main():
     args = parser.parse_args()
-    downloader = Downloader(args.output_dir)
+    downloader = Downloader(
+        args.output_dir,
+        args.tmp_dir,
+        args.worker_count,
+        args.concurrent_fragment_downloads,
+    )
+    print("Fetching information about episodes...")
     episodes = get_episodes()
     episodes_count = len(episodes)
     if args.limit:
@@ -51,10 +59,12 @@ def main():
         print(tabulate(e, headers="keys"))
 
     if download:
+        downloader.worker_count = min(downloader.worker_count, len(episodes))
         episodes: list[Episode] = [
             e for e in episodes if e.ard and not downloader.is_downloaded(e)
         ]
+        queue = Queue()
+        for e in episodes:
+            queue.put(e)
         print(f"Downloading {len(episodes)} episodes...")
-        for episode in episodes:
-            print(f"Downloading {episode.meta.id} '{episode.meta.title}'")
-            downloader.download(episode)
+        downloader.download(queue)

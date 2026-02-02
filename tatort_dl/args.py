@@ -6,6 +6,9 @@ parser = ArgumentParser(prog="tatort-dl", description="A downloader for Tatort m
 parser.add_argument("-l", "--list", action="store_true")
 parser.add_argument("--list-investigators", action="store_true")
 parser.add_argument("-o", "--output-dir", default=environ.get("OUTPUT_DIR", "videos"))
+parser.add_argument("-t", "--tmp-dir", type=str, default=environ.get("TMP_DIR", ".tmp"))
+parser.add_argument("--worker-count", type=int, default=4)
+parser.add_argument("-N", "--concurrent-fragment-downloads", type=int, default=4)
 
 # filters
 parser.add_argument(

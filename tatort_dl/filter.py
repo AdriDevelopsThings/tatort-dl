@@ -13,6 +13,7 @@ def apply_filters(
         episode
         for episode in episodes
         if (not args.filter_downloaded or downloader.is_downloaded(episode))
+        and (not args.filter_not_downloaded or not downloader.is_downloaded(episode))
         and (not args.filter_downloadable or episode.ard)
         and (
             not args.filter_investigators
