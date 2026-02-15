@@ -1,3 +1,4 @@
+from unicodedata import normalize
 from dataclasses import dataclass
 from re import S
 
@@ -67,7 +68,7 @@ def _wikipedia_tr_to_meta(header: list[str], tr: Tag) -> Meta:
     case_s = case_s.split(" ")[0]
     case = int(case_s)
 
-    published = tds[header.index("Erstausstrahlung")].get_text(strip=True)
+    published = normalize("NFKD", tds[header.index("Erstausstrahlung")].get_text(strip=True))
 
     return Meta(
         id=id, title=title, investigators=investigators, case=case, published=published
