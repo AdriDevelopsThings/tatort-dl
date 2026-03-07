@@ -13,6 +13,12 @@ class Episode:
     meta: meta.Meta
     ard: Optional[ardmediathek.ArdEpisode]
 
+    def get_prefix_filename(self) -> str:
+        return f"{self.meta.case}-{self.meta.id}"
+    
+    def get_filename(self) -> str:
+        return f"{self.get_prefix_filename()}-{self.meta.title}-{self.meta.published}.mp4"
+
 
 def _normalize_title(s: str) -> str:
     s = s.lower()

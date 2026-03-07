@@ -1,4 +1,4 @@
-from os import mkdir
+from os import mkdir, listdir
 from os.path import exists, join
 from queue import Queue
 from shutil import rmtree
@@ -29,13 +29,19 @@ class Downloader:
         if not exists(self.tmp):
             mkdir(self.tmp)
 
+    def get_episode_dir(self, episode: Episode) -> str:
+        return join(self.__dir, episode.meta.investigators[0])
+
     def get_episode_path(self, episode: Episode) -> str:
-        filename = f"{episode.meta.case}-{episode.meta.id}-{episode.meta.title}-{episode.meta.published}.mp4"
-        return join(self.__dir, episode.meta.investigators[0], filename)
+        return join(self.get_episode_dir(episode), episode.get_filename())
 
     def is_downloaded(self, episode: Episode) -> bool:
-        path = self.get_episode_path(episode)
-        return exists(path)
+        episode_dir = self.get_episode_dir(episode)
+        prefix = episode.get_prefix_filename()
+        for file in listdir(episode_dir):
+            if file.startswith(prefix):
+                return True
+        return False
 
     def download(self, download_queue: Queue[Episode]):
         self.running = True
